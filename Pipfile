@@ -17,6 +17,10 @@ lxml = "*"
 requests = "*"
 nltk = "*"
 textblob = "*"
+matplotlib = "*"
+seaborn = "*"
+sklearn = "*"
+statsmodels = "*"
 
 [requires]
 python_version = "3.7"
