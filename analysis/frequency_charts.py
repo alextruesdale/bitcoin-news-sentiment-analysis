@@ -1,9 +1,5 @@
 """Plotting notebook for publication frequency per month."""
 
-import sys
-sys.path.append('analysis')
-from analysis_base import AnalysisBase
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
