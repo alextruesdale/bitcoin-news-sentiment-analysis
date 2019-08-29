@@ -1,4 +1,4 @@
-<img src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/bitcoin_logo.png' alt='BTC logo' title='BTC' align='right' height='80' />
+<img src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/bitcoin_logo.png' alt='BTC logo' title='BTC' align='right' height='115' />
 
 # Bitcoin Sentiment in Large Publications
 
@@ -36,11 +36,11 @@ Each article receives a sentiment polarity score. Articles are then aggregated i
 
 ### Publishing Frequency Over Time
 
-<img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/publication_frequency.png' alt='publication_frequency' title='publication_frequency' width='880' />
+<img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/publication_freq.png' alt='publication_frequency' title='publication_frequency' width='880' />
 
 ### Sentiment vs. BTC Price
 
-Sentiment scores were calculated using both VADER and TextBlob polarity scoring. For each data source below, the first plot shows the VADER scores, while the second shows that derived via TextBlob.
+Sentiment scores are calculated using both VADER and TextBlob polarity scoring. For each data source below, the first plot shows the VADER scores, while the second shows those derived via TextBlob. Cursory causality testing using Granger Causality Tests indicated that, amongst these selected sources, BTC price is more a driver of news sentiment than the other way around.
 
 #### Aggregate
 <img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/rolling_vader_btc_agg.png' alt='rolling_vader_btc_agg' title='rolling_vader_btc_agg' width='1000' />
@@ -68,6 +68,8 @@ Sentiment scores were calculated using both VADER and TextBlob polarity scoring.
 <img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/rolling_blob_btc_reuters.png' alt='rolling_blob_btc_reuters' title='rolling_blob_btc_reuters' width='1000' />
 
 ### VADER / TextBlob Comparison
+
+The general comparison to note between the two methods is that TextBlob produces consistently lower values than VADER in its polarity scoring. What is interesting, however, is that this variance between the two methods is not equal from source to source (e.g. Reuters scores from both methods are much more similar than those from other sources). This indicates that a particular style of journalism might react with these unsupervised sentiment scorers with more volatility.
 
 #### Aggregate
 <img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/vader_blob_agg.png' alt='vader_blob_agg' title='vader_blob_agg' width='1000' />
