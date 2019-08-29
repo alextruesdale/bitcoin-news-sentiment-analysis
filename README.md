@@ -69,7 +69,7 @@ Sentiment scores are calculated using both VADER and TextBlob polarity scoring. 
 
 ### VADER / TextBlob Comparison
 
-The general comparison to note between the two methods is that TextBlob produces consistently lower values than VADER in its polarity scoring. What is interesting, however, is that this variance between the two methods is not equal from source to source (e.g. Reuters scores from both methods are much more similar than those from other sources). This indicates that a particular style of journalism might react with these unsupervised sentiment scorers with more volatility.
+The general comparison to note between the two methods is that TextBlob produces consistently lower values than VADER in its polarity scoring. What is interesting, however, is that this variance between the two methods is not equal from source to source (e.g. Reuters scores from both methods are much more similar than those from other sources). This indicates that a particular style of journalism might react with these unsupervised sentiment scorers with more volatility than others – presumably based on word choice.
 
 #### Aggregate
 <img align='center' src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/vader_blob_agg.png' alt='vader_blob_agg' title='vader_blob_agg' width='1000' />
