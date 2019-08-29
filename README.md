@@ -1,4 +1,4 @@
-<img src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/btc_logo.png' alt='BTC logo' title='BTC' align='right' height='115' />
+<img src='https://github.com/alextruesdale/bitcoin-news-sentiment-analysis/blob/master/repository_media/bitcoin_logo.png' alt='BTC logo' title='BTC' align='right' height='115' />
 
 # Bitcoin Sentiment in Large Publications
 
