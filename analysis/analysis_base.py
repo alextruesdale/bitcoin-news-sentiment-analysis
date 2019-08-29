@@ -34,23 +34,24 @@ class AnalysisBase(object):
     def reader(self):
         """Read-in function for data sets."""
 
-        bbc = pd.read_csv('data/scored/bbc_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
-        cnn = pd.read_csv('data/scored/cnn_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
-        nyt = pd.read_csv('data/scored/nyt_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
-        reuters = pd.read_csv('data/scored/reuters_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
+        bbc = pd.read_csv('../data/scored/bbc_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
+        cnn = pd.read_csv('../data/scored/cnn_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
+        nyt = pd.read_csv('../data/scored/nyt_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
+        reuters = pd.read_csv('../data/scored/reuters_bitcoin_scored.csv').drop(['Unnamed: 0'], axis=1)
 
         bbc['published'] = pd.to_datetime(bbc['published'], utc=True)
         cnn['published'] = pd.to_datetime(cnn['published'], utc=True)
         nyt['published'] = pd.to_datetime(nyt['published'], utc=True)
         reuters['published'] = pd.to_datetime(reuters['published'], utc=True)
 
-        btc = pd.read_csv('data/external/BTC-USD.csv', header=None, index_col=0).fillna(method='ffill')
+        btc = pd.read_csv('../data/external/BTC-USD.csv', header=None, index_col=0).fillna(method='ffill')
         btc.columns = ['price']
         btc.index.name = 'date'
         btc.index = pd.to_datetime(btc.index, utc=True)
 
-        crix = pd.read_csv('data/external/crix.csv')
+        crix = pd.read_csv('../data/external/crix.csv')
         crix['date'] = pd.to_datetime(crix['date'], utc=True)
+        crix = crix.set_index(['date'])
 
         return (bbc, cnn, nyt, reuters, btc, crix)
 
@@ -63,7 +64,7 @@ class AnalysisBase(object):
         reuters_latest = self.reuters['published'].max()
 
         btc_latest = self.btc.index.max()
-        crix_latest = self.crix['date'].max()
+        crix_latest = self.crix.index.max()
 
         start_point = pd.to_datetime('2017-01-01 00:00:00', utc=True)
         end_point = min(bbc_latest, cnn_latest, nyt_latest, reuters_latest,
@@ -82,7 +83,7 @@ class AnalysisBase(object):
         self.reuters = self.reuters[(self.reuters['published'] > self.start_point) & (self.reuters['published'] < self.end_point)]
 
         self.btc = self.btc[(self.btc.index > self.start_point) & (self.btc.index < self.end_point)]
-        self.crix = self.crix[(self.crix['date'] > self.start_point) & (self.crix['date'] < self.end_point)]
+        self.crix = self.crix[(self.crix.index > self.start_point) & (self.crix.index < self.end_point)]
 
     def vader_scaler(self):
         """Scale VADER scores to 0-1 range."""

@@ -1,10 +1,10 @@
 """Graphing notebook for VADER sentiment against BTC price / volatility."""
 
+from analysis_base import AnalysisBase
 from statsmodels.tsa.stattools import grangercausalitytests
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 data = AnalysisBase()
 bbc = data.bbc
@@ -59,17 +59,16 @@ def plotter(data_in_fn, data_in_month, file_key):
     fig, ax = plt.subplots(1, 1)
     fig.set_size_inches(16, 4)
     ax.set_xlim(data.start_point.date(), data.end_point.date())
-
-    line1 = ax.plot(data_in_month, label='Monthly')
-    line2 = ax.plot(data_in_fn, label='Fortnightly')
-
+    ax.set_ylim(0, .565)
     ax2 = ax.twinx()
-    line3 = ax2.plot(btc, label='BTC', c = 'red', alpha = 0.7)
 
-    lines = line1 + line2 + line3
-    labs = [l.get_label() for l in lines]
-    ax.legend(lines, labs, handlelength=2, loc=0)
-    plt.savefig(f'plots/btc_vader_sentiment/rolling_vader_btc_{file_key}.png', dpi=150, transparent=True)
+    line1 = ax.plot(data_in_month, c='blue', alpha=0.4)
+    line2 = ax.plot(data_in_fn, c='orange', alpha=0.9)
+    line3 = ax2.plot(btc, c='red', alpha=0.7)
+
+    ax.set_ylabel('Normalised VADER Sentiment', color='b', labelpad=10)
+    ax2.set_ylabel('BTC Price', color='r', labelpad=10)
+    plt.savefig(f'../plots/btc_vader_sentiment/rolling_vader_btc_{file_key}.png', dpi=150, transparent=True)
 
 ### Run plotting functions ###
 plotter(bbc_per_fn, bbc_per_month, 'bbc')

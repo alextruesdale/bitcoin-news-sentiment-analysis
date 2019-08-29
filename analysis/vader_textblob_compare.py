@@ -1,9 +1,9 @@
 """Graphing notebook for VADER sentiment against TextBlob sentiment."""
 
+from analysis_base import AnalysisBase
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 data = AnalysisBase()
 bbc = data.bbc
@@ -65,14 +65,16 @@ def plotter(data_in_vader, data_in_blob, file_key):
     fig, ax = plt.subplots(1, 1)
     fig.set_size_inches(16, 4)
     ax.set_xlim(data.start_point.date(), data.end_point.date())
+    ax2 = ax.twinx()
+    ax.set_ylim(0, .565)
+    ax2.set_ylim(0, .565)
 
-    line1 = ax.plot(data_in_vader, label='VADER')
-    line2 = ax.plot(data_in_blob, label='TextBlob')
+    line1 = ax.plot(data_in_vader, c='blue', alpha=0.7)
+    line2 = ax2.plot(data_in_blob, c='orange')
 
-    lines = line1 + line2
-    labs = [l.get_label() for l in lines]
-    ax.legend(lines, labs, handlelength=2, loc=0)
-    plt.savefig(f'plots/vader_blob_compare/vader_blob_{file_key}.png', dpi=150, transparent=True)
+    ax.set_ylabel('Normalised VADER Sentiment', color='b', labelpad=10)
+    ax2.set_ylabel('Normalised TextBlob Sentiment', color='r', labelpad=10)
+    plt.savefig(f'../plots/vader_blob_compare/vader_blob_{file_key}.png', dpi=150, transparent=True)
 
 ### Run plotting functions ###
 plotter(bbc_per_fn_vader, bbc_per_fn_blob, 'bbc')
