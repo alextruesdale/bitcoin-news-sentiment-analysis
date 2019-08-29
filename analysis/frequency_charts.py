@@ -1,11 +1,10 @@
 """Plotting notebook for publication frequency per month."""
 
+from analysis_base import AnalysisBase
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-sns.set(rc = {'figure.figsize': (11.7, 8.27)})
 data = AnalysisBase()
 bbc = data.bbc
 cnn = data.cnn
@@ -33,10 +32,19 @@ agg_per_month = bbc_per_month + cnn_per_month + nyt_per_month + reuters_per_mont
 def plotter(data_in, file_key):
     """Plotting function parent for monthly publish quantity bar charts."""
 
+    initial_date_end = data.end_point.date()
+    padded_date_end = initial_date_end + dateutil.relativedelta.relativedelta(days=25)
+
+    plt.rcParams["axes.edgecolor"] = '0.15'
+    plt.rcParams["axes.linewidth"]  = 1
     fig, ax = plt.subplots()
-    sns.countplot(data_in, palette=sns.color_palette('Blues_d', n_colors=1))
-    ax.set(xlabel='stories published per month', ylabel='count')
-    plt.savefig(f'plots/publish_count/publish_count_month_{file_key}.png', transparent = True)
+    fig.set_size_inches(11, 8)
+    ax.set_xlim(data.start_point.date(), padded_date_end)
+    ax.grid(False)
+
+    ax.bar(data_in.index, data_in, width=1, color='#4984AF')
+    ax.set_ylabel('Count Articles Published', labelpad=10)
+    plt.savefig(f'../plots/publish_count/publish_count_month_{file_key}.png', dpi=150, transparent = True)
 
 ### Run plotting functions ###
 plotter(bbc_per_month, 'bbc')
